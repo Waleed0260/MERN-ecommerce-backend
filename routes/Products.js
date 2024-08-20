@@ -4,15 +4,18 @@ const productSchema = require("../schemas/Products")
 const Reviews = require("../schemas/Reviews");
 const upload = require("../uploads/upload")
 const {restrictSellerLoggedIn} = require("../middleware/sellerAuth")
-const {getUser} = require("../services/auth")
+// const {getUser} = require("../services/auth")
 
-router.post("/", upload.single('image'), async(req, res)=>{
-    const getToken = getUser(req.cookies.sellId);
-    const seller_id = getToken?.id;
-    const {name, description, price, category, brand, stock} = req.body;
+router.post("/", upload.array('images', 10), async(req, res)=>{
+    // const getToken = getUser(req.cookies?.sellId);
+    // const seller_id = getToken?.id;
+    // const image = req.file.path;
+    // console.log("image", image)
+    const images = req.files.map(file => file.path);
+    const {seller_id, name, description, price, category, brand, stock} = req.body;
     // const id = uuidv4();
     await productSchema.create({
-        seller_id, name, description, price, category, brand, stock
+        seller_id, name, description, price, category, brand, images, stock
     })
     res.status(201).json({successs:"product added successfully"})
 })
