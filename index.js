@@ -8,9 +8,12 @@ const products = require("./routes/Products")
 const user = require("./schemas/user")
 const addToCart = require("./routes/Cart")
 const sellerRoutes = require("./routes/Seller")
+const cors = require("cors")
 app.use(express.json()); // To parse JSON bodies
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
+app.use(cors());
+
 
 
 connection("mongodb://127.0.0.1:27017/blog-app").then(()=>{

@@ -8,8 +8,8 @@
   });
   
   const productSchema = new mongoose.Schema({
-    user_id:{type: String, required:true}, // In this I want to store the id of the user and the schema for the user is in another file
-    id: {type: String, required: true},
+    seller_id:{type: String, required:true}, // In this I want to store the id of the user and the schema for the user is in another file
+    // id: {type: String, required: true},
     name: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
     price: { type: Number, required: true, min: 0 },
