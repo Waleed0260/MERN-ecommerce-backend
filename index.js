@@ -5,7 +5,8 @@ const connection = require("./db/dbConnection")
 const addBlog = require("./routes/Blogs")
 const userRoutes = require("./routes/user")
 const products = require("./routes/Products")
-const user = require("./schemas/user")
+// const user = require("./schemas/user")
+const path = require("path")
 const addToCart = require("./routes/Cart")
 const sellerRoutes = require("./routes/Seller")
 const cors = require("cors")
@@ -13,6 +14,7 @@ app.use(express.json()); // To parse JSON bodies
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(cors());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 

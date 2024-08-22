@@ -20,12 +20,12 @@ router.post("/login", async(req, res)=>{
     const findEmail = await users.findOne({email, password})
     const token = setUser({id: findEmail.id, email: findEmail.email, name: findEmail.name});
     res.cookie("uid", token)
-    return res.status(200).json(token);
+    return res.status(200).json(findEmail);
 })
 router.get("/:id", async(req,res)=>{
     const user = await users.findOne({id: req.params.id});
     const token = req.cookies.uid;
-    getUser(token)
+    // getUser(token)
     return res.status(200).json(user);
 })
 router.patch("/:id", async(req, res)=>{

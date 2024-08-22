@@ -4,22 +4,24 @@ const productSchema = require("../schemas/Products");
 const cartSchema = require("../schemas/Cart");
 const {restrictUserLoggedIn} = require("../middleware/auth")
 
-router.post("/", restrictUserLoggedIn, async(req, res) => {
+router.post("/", async(req, res) => {
   const id = req.body.id;
   const userId = req.cookies.uid;
-  const product = await productSchema.findOne({ _id: id });
+  const product = await productSchema.findById({_id: id});
   await cartSchema.create({
-    id: product.id,
-    user_id: userId,
+    // user_id: userId,
+    product_id: product.id,
     name: product.name,
     description: product.description,
     price: product.price,
     category: product.category,
     brand: product.brand,
+    images: product.images,
+    stock: product.stock
   });
   return res.status(201).json({ success: "successfully added schema" });
 });
-// GETTING ALL PRODUCT ITEMS
+// GETTING ALL CART ITEMS
 router.get("/", async (req, res) => {
   const cartItems = await cartSchema.find({});
   return res.status(200).json(cartItems);
